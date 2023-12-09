@@ -5,6 +5,7 @@ import UserModel from '../modal/userSchema';
 
 export const userReg = async (req: Request, res: Response): Promise<any> => {
     const { name, password, email } = req.body;
+    
     try {
         const salt = await bcrypt.genSalt();
         const passwordHash = await bcrypt.hash(password, salt);
@@ -13,11 +14,11 @@ export const userReg = async (req: Request, res: Response): Promise<any> => {
             return res.status(400).json({ error: 'Please provide all required fields' });
         }
 
-        const existingUser = await UserModel.findOne({ email });
+        // const existingUser = await UserModel.findOne({ email });
 
-        if (existingUser) {
-            return res.status(400).json({ error: 'User with this email already exists' });
-        }
+        // if (existingUser) {
+        //     return res.status(400).json({ error: 'User with this email already exists' });
+        // }
 
         const newUser = new UserModel({
             name,
