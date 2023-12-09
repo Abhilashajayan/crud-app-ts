@@ -3,8 +3,10 @@ import cors from 'cors';
 import nocache from 'nocache';
 import { config } from 'dotenv';
 import  connectToMongoDB  from './config/database';
-config(); 
+import userRouter from './routes/userRouter';
 
+
+config(); 
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -17,17 +19,11 @@ app.use(
     optionsSuccessStatus: 204,
   })
 );
-
 app.use(nocache());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
-
-
-
-
 connectToMongoDB();
-
+app.use('/',userRouter)
 app.listen(port, () => {
   console.log(`Server Running on ${port}`);
 });
