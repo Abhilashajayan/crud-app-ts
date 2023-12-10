@@ -33,3 +33,16 @@ export const userReg = async (req: Request, res: Response): Promise<any> => {
         res.status(500).json({ error: 'Something went wrong' });
     }
 };
+
+
+export const userLog = async ( req : Request, res : Response) : Promise<any> => {
+    const {email , password} = req.body;
+    console.log(email);
+    try{
+
+
+    }catch(err){
+        console.log(err);
+    }
+
+}
