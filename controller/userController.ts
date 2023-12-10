@@ -14,11 +14,11 @@ export const userReg = async (req: Request, res: Response): Promise<any> => {
             return res.status(400).json({ error: 'Please provide all required fields' });
         }
 
-        // const existingUser = await UserModel.findOne({ email });
+        const existingUser = await UserModel.findOne({ email });
 
-        // if (existingUser) {
-        //     return res.status(400).json({ error: 'User with this email already exists' });
-        // }
+        if (existingUser) {
+            return res.status(400).json({ error: 'User with this email already exists' });
+        }
 
         const newUser = new UserModel({
             name,
@@ -37,9 +37,19 @@ export const userReg = async (req: Request, res: Response): Promise<any> => {
 
 export const userLog = async ( req : Request, res : Response) : Promise<any> => {
     const {email , password} = req.body;
-    console.log(email);
     try{
+        const users = await UserModel.findOne({ email });
 
+        if(!users)
+        {
+            if (!users) return res.status(400).json({ error: "User does not exist" });
+        }
+        const isMatch = await bcrypt.compare(password, users.password);
+        if (!isMatch)
+        {
+         return res.status(400).json({ error: "Invalid Password !!" });
+        }
+        return res.status(200).json({ users });
 
     }catch(err){
         console.log(err);
