@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import bcrypt from 'bcrypt';
-import UserModel from '../modal/userSchema'; 
+import UserModel from '../model/userSchema'; 
 
 
 export const userReg = async (req: Request, res: Response): Promise<any> => {

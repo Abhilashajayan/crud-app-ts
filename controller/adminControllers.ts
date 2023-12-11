@@ -1,5 +1,5 @@
 import { Request , Response } from "express";
-import adminModel from "../modal/adminSchema";
+import adminModel from "../model/adminSchema";
 
 export const adminLogin = async (req: Request, res: Response): Promise<any> => {
     const { name, password } = req.body;
