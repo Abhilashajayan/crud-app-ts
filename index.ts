@@ -4,7 +4,7 @@ import nocache from 'nocache';
 import { config } from 'dotenv';
 import  connectToMongoDB  from './config/database';
 import userRouter from './routes/userRouter';
-
+import adminRouter from './routes/adminRouter';
 
 config(); 
 const app = express();
@@ -24,6 +24,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 connectToMongoDB();
 app.use('/',userRouter)
+app.use('/admin',adminRouter);
 app.listen(port, () => {
   console.log(`Server Running on ${port}`);
 });
