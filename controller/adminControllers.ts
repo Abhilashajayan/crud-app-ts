@@ -1,5 +1,6 @@
 import { Request , Response } from "express";
 import adminModel from "../model/adminSchema";
+import UserModel from "../model/userSchema";
 
 export const adminLogin = async (req: Request, res: Response): Promise<any> => {
     const { name, password } = req.body;
@@ -25,3 +26,16 @@ export const adminLogin = async (req: Request, res: Response): Promise<any> => {
     }
 };
 
+
+export const getUsers = async (req: Request, res: Response): Promise<any> => {
+    try {
+        const users = await UserModel.find()
+        if (users) {
+           return res.status(200).json({ users });
+        } else {
+            return res.status(400).json({ error: "User's Data Not Available" });
+        }
+    } catch (err : any) {
+        res.status(500).json({ error: err.message });
+    }
+}
