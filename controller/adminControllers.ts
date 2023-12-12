@@ -39,3 +39,17 @@ export const getUsers = async (req: Request, res: Response): Promise<any> => {
         res.status(500).json({ error: err.message });
     }
 }
+
+
+export const deleteUser = async (req: Request, res: Response): Promise<any> =>{
+    const userID = req.params.userId;
+    try{
+    const user = await UserModel.findByIdAndDelete(userID);
+    if(user){
+        return res.status(200).json({ message : 'User deleted successfully' });
+    }
+    return res.status(404).json({ message : 'User not found' });
+    }catch(err:any){
+        return res.status(400).json({ error: "someting went wrong!" });
+    }
+}
